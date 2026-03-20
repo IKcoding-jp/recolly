@@ -1,8 +1,46 @@
-# Omakase Ruby styling for Rails
-inherit_gem: { rubocop-rails-omakase: rubocop.yml }
+plugins:
+  - rubocop-rails
+  - rubocop-rspec
 
-# Overwrite or add rules to create your own house style
-#
-# # Use `[a, [b, c]]` not `[ a, [ b, c ] ]`
-# Layout/SpaceInsideArrayLiteralBrackets:
-#   Enabled: false
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.3
+  SuggestExtensions: false
+  Exclude:
+    - "bin/**/*"
+    - "db/schema.rb"
+    - "db/migrate/**/*"
+    - "db/queue_schema.rb"
+    - "vendor/**/*"
+    - "config/**/*"
+    - "spec/rails_helper.rb"
+
+# 1ファイル200行以内（プロジェクト規約）
+Metrics/ClassLength:
+  Max: 150
+
+Metrics/MethodLength:
+  Max: 20
+
+# 日本語コメントを許可
+Style/AsciiComments:
+  Enabled: false
+
+# APIモードのモジュールネスト
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+# Ruby 3.x ではフリーズコメント不要
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# ドキュメントコメントは強制しない
+Style/Documentation:
+  Enabled: false
+
+# Windowsの改行コード（CRLF）を許可
+Layout/EndOfLine:
+  Enabled: false
+
+Rails:
+  Enabled: true
