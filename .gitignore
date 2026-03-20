@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+vendor/bundle/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Rails
+log/
+tmp/
+storage/
+db/*.sqlite3
+db/*.sqlite3-journal
+public/assets
+public/packs
+
+# React / Vite
+dist/
+build/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Coverage
+coverage/
+
+# Superpowers (tool artifacts)
+.superpowers/
+
+# Misc
+*.log
