@@ -1,0 +1,81 @@
+# frozen_string_literal: true
+
+require 'rails_helper'
+require 'webmock/rspec'
+
+RSpec.describe ExternalApis::IgdbAdapter, type: :service do
+  subject(:adapter) { described_class.new }
+
+  let(:client_id) { 'test_igdb_client_id' }
+  let(:client_secret) { 'test_igdb_client_secret' }
+
+  before do
+    allow(ENV).to receive(:fetch).and_call_original
+    allow(ENV).to receive(:fetch).with('IGDB_CLIENT_ID').and_return(client_id)
+    allow(ENV).to receive(:fetch).with('IGDB_CLIENT_SECRET').and_return(client_secret)
+    Rails.cache.clear
+
+    # Twitch OAuth トークン取得
+    stub_request(:post, 'https://id.twitch.tv/oauth2/token')
+      .to_return(status: 200,
+                 body: { 'access_token' => 'test_token', 'expires_in' => 5_000_000 }.to_json,
+                 headers: { 'Content-Type' => 'application/json' })
+  end
+
+  describe '#media_types' do
+    it 'game を返す' do
+      expect(adapter.media_types).to eq(%w[game])
+    end
+  end
+
+  describe '#search' do
+    let(:igdb_response) do
+      [
+        {
+          'id' => 1942,
+          'name' => 'The Witcher 3: Wild Hunt',
+          'summary' => 'オープンワールドRPG',
+          'cover' => { 'image_id' => 'co1wyy' },
+          'platforms' => [{ 'name' => 'PC' }, { 'name' => 'PlayStation 4' }],
+          'genres' => [{ 'name' => 'RPG' }],
+          'first_release_date' => 1_431_993_600
+        }
+      ]
+    end
+
+    before do
+      stub_request(:post, 'https://api.igdb.com/v4/games')
+        .to_return(status: 200, body: igdb_response.to_json,
+                   headers: { 'Content-Type' => 'application/json' })
+    end
+
+    it 'ゲームの検索結果を統一フォーマットで返す' do
+      results = adapter.search('Witcher')
+      expect(results.length).to eq(1)
+      game = results.first
+      expect(game.title).to eq('The Witcher 3: Wild Hunt')
+      expect(game.media_type).to eq('game')
+      expect(game.external_api_id).to eq('1942')
+    end
+
+    it 'APIソースとカバー画像URLを正しく設定する' do
+      game = adapter.search('Witcher').first
+      expect(game.external_api_source).to eq('igdb')
+      expect(game.cover_image_url).to include('images.igdb.com')
+    end
+
+    it 'Twitch OAuth トークンを取得してAPIに送信する' do
+      adapter.search('Witcher')
+      expect(WebMock).to have_requested(:post, 'https://id.twitch.tv/oauth2/token')
+      expect(WebMock).to have_requested(:post, 'https://api.igdb.com/v4/games')
+        .with(headers: { 'Authorization' => 'Bearer test_token', 'Client-ID' => client_id })
+    end
+  end
+
+  describe '#safe_search' do
+    it 'OAuth認証失敗時に空配列を返す' do
+      stub_request(:post, 'https://id.twitch.tv/oauth2/token').to_return(status: 401)
+      expect(adapter.safe_search('テスト')).to eq([])
+    end
+  end
+end

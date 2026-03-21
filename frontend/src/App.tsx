@@ -5,6 +5,7 @@ import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute'
 import { LoginPage } from './pages/LoginPage/LoginPage'
 import { SignUpPage } from './pages/SignUpPage/SignUpPage'
 import { DashboardPage } from './pages/DashboardPage/DashboardPage'
+import { SearchPage } from './pages/SearchPage/SearchPage'
 
 // 認証済みならダッシュボードへ、未認証ならログインページへ
 function RootRedirect() {
@@ -28,6 +29,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <DashboardPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/search"
+            element={
+              <ProtectedRoute>
+                <SearchPage />
               </ProtectedRoute>
             }
           />
