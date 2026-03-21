@@ -15,6 +15,9 @@ db/*.sqlite3
 db/*.sqlite3-journal
 public/assets
 public/packs
+backend/config/master.key
+backend/config/credentials.yml.enc
+backend/.kamal/secrets
 
 # React / Vite
 dist/
@@ -38,3 +41,6 @@ coverage/
 
 # Misc
 *.log
+
+# Docker
+docker-compose.override.yml
