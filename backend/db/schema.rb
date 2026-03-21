@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_21_052847) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_21_080744) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -28,5 +28,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_21_052847) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
+  end
+
+  create_table "works", force: :cascade do |t|
+    t.string "cover_image_url"
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.string "external_api_id"
+    t.string "external_api_source"
+    t.integer "media_type", null: false
+    t.jsonb "metadata", default: {}
+    t.string "title", null: false
+    t.integer "total_episodes"
+    t.datetime "updated_at", null: false
+    t.index ["external_api_id", "external_api_source"], name: "index_works_on_external_api_id_and_external_api_source", unique: true, where: "(external_api_id IS NOT NULL)"
   end
 end
