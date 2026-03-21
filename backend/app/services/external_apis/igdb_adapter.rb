@@ -7,8 +7,11 @@ module ExternalApis
     IMAGE_BASE_URL = 'https://images.igdb.com/igdb/image/upload/t_cover_big'
     # キャッシュキーにクライアントIDを含めて複数環境での衝突を防ぐ
     TOKEN_CACHE_KEY = 'igdb_access_token'
-    SEARCH_FIELDS = 'name,summary,cover.image_id,platforms.name,genres.name,' \
-      'first_release_date,alternative_names.name,alternative_names.comment'
+    SEARCH_FIELDS = [
+      'name', 'summary', 'cover.image_id', 'platforms.name',
+      'genres.name', 'first_release_date',
+      'alternative_names.name', 'alternative_names.comment'
+    ].join(',').freeze
 
     def media_types
       %w[game]
