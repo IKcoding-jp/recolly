@@ -8,7 +8,7 @@ module ExternalApis
     SEARCH_QUERY = <<~GRAPHQL
       query ($search: String) {
         Page(perPage: 20) {
-          media(search: $search, type: null) {
+          media(search: $search, isAdult: false) {
             id
             title { romaji native english }
             description(asHtml: false)
@@ -30,7 +30,7 @@ module ExternalApis
 
     def search(query)
       body = { query: SEARCH_QUERY, variables: { search: query } }
-      response = anilist_connection.post(ENDPOINT, body)
+      response = anilist_connection.post('/', body)
 
       media_list = response.body.dig('data', 'Page', 'media') || []
       media_list.map { |item| normalize(item) }
