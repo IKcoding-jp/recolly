@@ -10,9 +10,8 @@
 #   inflect.uncountable %w( fish sheep )
 # end
 
-# 外部APIクライアントのクラス名を正しくCamelCaseに変換するためのアクロニム定義
-# Zeitwerkはこの設定を使用してファイル名 → クラス名のマッピングを行う
+# AniListAdapterのファイル名（anilist_adapter.rb）をZeitwerkが正しくCamelCaseに変換するためのアクロニム定義
+# IGDBは通常のCamelCase（IgdbAdapter）を使用するためアクロニム登録不要
 ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym 'AniList'
-  inflect.acronym 'IGDB'
 end
