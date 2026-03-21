@@ -44,3 +44,19 @@ Layout/EndOfLine:
 
 Rails:
   Enabled: true
+
+# テストでは関連する複数のexpectをまとめて書くことを許可
+RSpec/MultipleExpectations:
+  Max: 3
+
+# 日本語のcontext記述を許可（「正常系」「異常系」等）
+RSpec/ContextWording:
+  Enabled: false
+
+# テストの行数制限を緩和
+RSpec/ExampleLength:
+  Max: 10
+
+# let!のセットアップを許可（テストのDB状態構築に使用）
+RSpec/LetSetup:
+  Enabled: false

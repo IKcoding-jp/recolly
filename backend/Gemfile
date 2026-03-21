@@ -9,6 +9,9 @@ gem 'puma', '>= 5.0'
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
 
+# 認証ライブラリ（ADR-0007）
+gem 'devise'
+
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
 
@@ -29,7 +32,7 @@ gem 'kamal', require: false
 gem 'thruster', require: false
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
-# gem "rack-cors"
+gem 'rack-cors'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -52,4 +55,7 @@ group :development do
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
+
+  # 開発環境でメールをブラウザでプレビュー（パスワードリセット用）
+  gem 'letter_opener_web'
 end
