@@ -52,11 +52,14 @@ module ExternalApis
     def access_token
       Rails.cache.fetch(TOKEN_CACHE_KEY, expires_in: 50.days) do
         token_connection = Faraday.new { |f| f.response :json }
-        response = token_connection.post(TWITCH_TOKEN_URL, {
-          client_id: ENV.fetch('IGDB_CLIENT_ID'),
-          client_secret: ENV.fetch('IGDB_CLIENT_SECRET'),
-          grant_type: 'client_credentials'
-        })
+        response = token_connection.post(
+          TWITCH_TOKEN_URL,
+          {
+            client_id: ENV.fetch('IGDB_CLIENT_ID'),
+            client_secret: ENV.fetch('IGDB_CLIENT_SECRET'),
+            grant_type: 'client_credentials'
+          }
+        )
         token = response.body['access_token']
         raise "Twitch OAuthトークン取得失敗: #{response.body}" unless token
 
