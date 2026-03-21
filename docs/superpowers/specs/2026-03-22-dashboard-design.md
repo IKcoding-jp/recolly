@@ -118,7 +118,7 @@
 #### ボタン仕様
 
 - 横幅: 72px固定（全ジャンル統一）
-- スタイル: 背景 `#2c2c2c`、白文字、border-radius 4px、13px 600weight
+- スタイル: 背景 `var(--color-text)`、白文字、border-radius 4px（実装時はtokens.cssの変数を使用）
 - クリック時: 画面遷移なし。APIで更新し、リストを再レンダリング
 - 話数ありメディアで最終話到達時: 既存の自動完了ロジック（`status` → `completed`）が発動し、リストから消える
 - 話数なしメディア（本・映画・ゲーム）: ボタン押下で `status` → `completed` に変更、リストから消える
@@ -180,7 +180,7 @@
 
 ### 6.1 使用するAPI（既存）
 
-- `GET /api/v1/records?status=watching&sort=updated_at_desc` — 進行中リスト取得
+- `GET /api/v1/records?status=watching` — 進行中リスト取得（sortパラメータ省略 = デフォルトの `updated_at` 降順）
 - `PATCH /api/v1/records/:id` — 進捗更新（`current_episode` または `status` の更新）
 
 ### 6.2 新規APIエンドポイント
