@@ -34,15 +34,17 @@ recolly/
 ## 開発手法
 
 **SDD（仕様駆動開発）+ TDD（テスト駆動開発）+ Issue駆動開発**
+**superpowersスキルを主軸とする。**
 
-1. GitHub Issueを作成（ブレインストーミングで要件を明確化 → Working Documents生成）
-2. 仕様書を `docs/` に作成
-3. テストを書く（この時点ではテストは失敗する）
-4. テストが通る最小限の実装を書く
-5. リファクタリング
+1. `superpowers:brainstorming`（要件深掘り + スペック作成）
+2. GitHub Issue作成（`.claude/skills/issue-creator` でスペックからIssue起票 + Working Docs生成）
+3. `superpowers:writing-plans`（実装プラン作成）
+4. `superpowers:subagent-driven-development`（各タスク内で `superpowers:test-driven-development` を使用）
+5. `superpowers:finishing-a-development-branch` → PR作成 → Claude Code Review → マージ
 
-- Issue作成は `.claude/skills/issue-creator` スキルで行う
-- Working Documentsは `docs/working/` に保存し、`/clear` 後のコンテキスト復元に使う
+- ブレインストーミング中に技術選定が発生したら `comprehension-guard` が自動発動、判断確定時は `adr` で自動記録
+- ドキュメントは `docs/superpowers/` に一元管理（specs/, plans/, working/）
+- `/clear` 後は `docs/superpowers/working/` を読めばコンテキストを復元できる
 
 ## コードレビュー
 
@@ -170,11 +172,17 @@ docker compose run --rm backend bin/rails db:seed
 
 ## 理解負債防止
 
-<!-- AI支援開発では、コードは動くが「なぜ動くか説明できない」状態（理解負債）が蓄積しやすい。
-     この仕組みにより、判断の記録と理解の確認をプロセスに組み込み、負債を防止する。 -->
-
 - 技術選定・設計判断では `.claude/skills/comprehension-guard` スキルに従い、必ずユーザーの承認を得てから実装に進む
 - 説明はプログラミング初学者を前提とする。専門用語は初出時に平易な説明を添える
 - 設計判断は `docs/adr/` にADR（Architecture Decision Record）として記録する
 - 新技術の学習は `docs/learning/` にノートとして蓄積する
-- PR作成前に `.claude/skills/pr-review` スキルで理解度チェックを行う
+
+### PR前セルフチェック（superpowers:finishing-a-development-branchで実施）
+
+- 同一メソッド/関数が複数ファイルに重複していないか（DRY）
+- 全ファイルが200行以内か
+- CSS/スタイルにハードコード値がないか
+- POSTで新規作成するエンドポイントは201を返しているか
+- 設定ファイルに未使用コメント/dead codeがないか
+- async関数をonClickに直接渡していないか
+- 設計判断のADR・学習ノートに記録漏れがないか

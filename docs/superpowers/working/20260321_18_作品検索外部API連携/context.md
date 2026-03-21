@@ -3,16 +3,16 @@
 Issue: #18
 
 ## 仕様書参照
-- [メイン仕様書](../../superpowers/specs/2026-03-20-recolly-design.md)
+- [メイン仕様書](../../specs/2026-03-20-recolly-design.md)
   - セクション3: 対応メディアジャンル（media_typeとAPI対応表）
   - セクション4: データモデル（Works, Recordsテーブル定義）
   - セクション6.1: 画面構成（/search ページ）
   - セクション9: 開発フェーズ（フェーズ1: 作品検索）
   - セクション10: 作品データ取得戦略（外部API一覧）
-- [ADR-0008](../../adr/0008-検索キャッシュにredisを採用.md) — Redis採用
-- [ADR-0009](../../adr/0009-httpクライアントにfaradayを採用.md) — Faraday採用
-- [ADR-0010](../../adr/0010-anilist-graphqlをhttp直接クエリで対応.md) — AniList対応方針
-- [ADR-0011](../../adr/0011-外部apiクライアントにアダプタパターンを採用.md) — アダプタパターン採用
+- [ADR-0008](../../../adr/0008-検索キャッシュにredisを採用.md) — Redis採用
+- [ADR-0009](../../../adr/0009-httpクライアントにfaradayを採用.md) — Faraday採用
+- [ADR-0010](../../../adr/0010-anilist-graphqlをhttp直接クエリで対応.md) — AniList対応方針
+- [ADR-0011](../../../adr/0011-外部apiクライアントにアダプタパターンを採用.md) — アダプタパターン採用
 
 ## このIssueで実現すること
 外部API 4つ（TMDB, AniList, Google Books, IGDB）と連携した作品検索、

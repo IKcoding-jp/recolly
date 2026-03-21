@@ -3,8 +3,8 @@
 Issue: #12
 
 ## 仕様書参照
-- [メイン仕様書](../../superpowers/specs/2026-03-20-recolly-design.md)（セクション7: UIデザイン）
-- [ADR-0006](../../adr/0006-cssスタイリング方式にcss-modules-グローバルcss変数を採用.md)
+- [メイン仕様書](../../specs/2026-03-20-recolly-design.md)（セクション7: UIデザイン）
+- [ADR-0006](../../../adr/0006-cssスタイリング方式にcss-modules-グローバルcss変数を採用.md)
 
 ## このIssueで実現すること
 仕様書セクション7のデザイン方針（エディトリアルスタイル）に基づき、CSS変数によるデザイントークンと基本UIコンポーネント4種（Typography, Button, Divider, SectionTitle）を実装する。フェーズ1以降の全ページがこのデザインシステムを使って構築される前提。

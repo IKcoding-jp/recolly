@@ -116,7 +116,7 @@ IgdbAdapter < BaseAdapter       # game
 - .env.exampleに外部APIキーの項目追加
 
 ## 関連ADR
-- [ADR-0008](../../adr/0008-検索キャッシュにredisを採用.md)
-- [ADR-0009](../../adr/0009-httpクライアントにfaradayを採用.md)
-- [ADR-0010](../../adr/0010-anilist-graphqlをhttp直接クエリで対応.md)
-- [ADR-0011](../../adr/0011-外部apiクライアントにアダプタパターンを採用.md)
+- [ADR-0008](../../../adr/0008-検索キャッシュにredisを採用.md)
+- [ADR-0009](../../../adr/0009-httpクライアントにfaradayを採用.md)
+- [ADR-0010](../../../adr/0010-anilist-graphqlをhttp直接クエリで対応.md)
+- [ADR-0011](../../../adr/0011-外部apiクライアントにアダプタパターンを採用.md)

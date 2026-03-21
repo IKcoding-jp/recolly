@@ -3,9 +3,9 @@
 Issue: #14
 
 ## 仕様書参照
-- [メイン仕様書](../../superpowers/specs/2026-03-20-recolly-design.md)（セクション4.1: Users/UserProvidersテーブル、セクション5: 認証）
-- [ADR-0007: 認証アーキテクチャにdevise + セッションCookieを採用](../../adr/0007-認証アーキテクチャにdevise-セッションcookieを採用.md)
-- [学習ノート: devise](../../learning/devise.md)
+- [メイン仕様書](../../specs/2026-03-20-recolly-design.md)（セクション4.1: Users/UserProvidersテーブル、セクション5: 認証）
+- [ADR-0007: 認証アーキテクチャにdevise + セッションCookieを採用](../../../adr/0007-認証アーキテクチャにdevise-セッションcookieを採用.md)
+- [学習ノート: devise](../../../learning/devise.md)
 
 ## このIssueで実現すること
 deviseを使ったメール+パスワード認証の基盤を構築する。ユーザー登録、ログイン、ログアウト、パスワードリセットの基本フローをバックエンド（Rails API）とフロントエンド（React）の両方で実装する。フェーズ1の全機能の前提となる認証基盤。

@@ -80,4 +80,4 @@ bio:         text（自己紹介、null可）
 - React Router導入により、今後のページ追加はルーティング定義の追加で行う
 
 ## 関連ADR
-- [ADR-0007: 認証アーキテクチャにdevise + セッションCookieを採用](../../adr/0007-認証アーキテクチャにdevise-セッションcookieを採用.md)
+- [ADR-0007: 認証アーキテクチャにdevise + セッションCookieを採用](../../../adr/0007-認証アーキテクチャにdevise-セッションcookieを採用.md)
