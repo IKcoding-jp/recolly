@@ -27,9 +27,7 @@ export function RatingInput({ value, onChange }: RatingInputProps) {
           </button>
         ))}
       </div>
-      {value !== null && (
-        <span className={styles.display}>{value} / 10</span>
-      )}
+      {value !== null && <span className={styles.display}>{value} / 10</span>}
     </div>
   )
 }
