@@ -1,0 +1,44 @@
+# frozen_string_literal: true
+
+module ExternalApis
+  # 外部API共通インターフェース（ADR-0011: アダプタパターン）
+  # 各APIアダプタはこのクラスを継承し、search メソッドを実装する
+  class BaseAdapter
+    # 検索結果の統一フォーマット
+    SearchResult = Struct.new(
+      :title, :media_type, :description, :cover_image_url,
+      :total_episodes, :external_api_id, :external_api_source, :metadata
+    )
+
+    # このアダプタが対応するmedia_type一覧
+    def media_types
+      raise NotImplementedError, "#{self.class}#media_types を実装してください"
+    end
+
+    # キーワード検索（子クラスで実装）
+    def search(query)
+      raise NotImplementedError, "#{self.class}#search を実装してください"
+    end
+
+    # エラーハンドリング付き検索（コントローラーから呼ぶ）
+    def safe_search(query)
+      search(query)
+    rescue Faraday::Error => e
+      Rails.logger.error("[#{self.class.name}] API通信エラー: #{e.message}")
+      []
+    rescue StandardError => e
+      Rails.logger.error("[#{self.class.name}] 予期せぬエラー: #{e.message}")
+      []
+    end
+
+    private
+
+    def connection(url:)
+      Faraday.new(url: url) do |f|
+        f.request :json
+        f.response :json
+        f.adapter Faraday.default_adapter
+      end
+    end
+  end
+end
