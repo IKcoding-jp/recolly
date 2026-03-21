@@ -27,6 +27,7 @@ jobs:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           plugin_marketplaces: 'https://github.com/anthropics/claude-code.git'
           plugins: 'code-review@claude-code-plugins'
+          claude_args: '--allowedTools mcp__github__create_pending_pull_request_review mcp__github__add_pull_request_review_comment_to_pending_review mcp__github__submit_pending_pull_request_review mcp__github__get_pull_request_diff'
           prompt: |
             /code-review:code-review ${{ github.repository }}/pull/${{ github.event.pull_request.number }}
 
