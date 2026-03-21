@@ -6,7 +6,6 @@
   font-family: var(--font-body);
   font-weight: var(--font-weight-medium);
   border: var(--border-width) var(--border-style) transparent;
-  cursor: pointer;
   transition:
     background-color var(--transition-fast),
     color var(--transition-fast),

@@ -2,10 +2,11 @@ import { Typography } from './components/ui/Typography/Typography'
 import { Button } from './components/ui/Button/Button'
 import { Divider } from './components/ui/Divider/Divider'
 import { SectionTitle } from './components/ui/SectionTitle/SectionTitle'
+import styles from './App.module.css'
 
 function App() {
   return (
-    <div style={{ maxWidth: '800px', margin: '0 auto', padding: '2rem' }}>
+    <div className={styles.showcase}>
       <Typography variant="h1">Recolly デザインシステム</Typography>
       <Typography variant="body">コンポーネントショーケース — 全UIパーツの一覧</Typography>
 
@@ -23,19 +24,12 @@ function App() {
       <Divider />
 
       <SectionTitle>Button</SectionTitle>
-      <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+      <div className={styles.row}>
         <Button variant="primary">プライマリ</Button>
         <Button variant="secondary">セカンダリ</Button>
         <Button variant="ghost">ゴースト</Button>
       </div>
-      <div
-        style={{
-          display: 'flex',
-          gap: '1rem',
-          flexWrap: 'wrap',
-          marginTop: '1rem',
-        }}
-      >
+      <div className={styles.rowWithMargin}>
         <Button variant="primary" size="sm">
           Small
         </Button>
@@ -46,7 +40,7 @@ function App() {
           Large
         </Button>
       </div>
-      <div style={{ marginTop: '1rem' }}>
+      <div className={styles.rowWithMargin}>
         <Button variant="primary" disabled>
           無効化
         </Button>
@@ -62,16 +56,12 @@ function App() {
       <Divider />
 
       <SectionTitle>ジャンル別カラー</SectionTitle>
-      <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+      <div className={styles.row}>
         {(['anime', 'movie', 'drama', 'book', 'manga', 'game'] as const).map((genre) => (
           <span
             key={genre}
-            style={{
-              backgroundColor: `var(--color-${genre})`,
-              color: 'var(--color-bg-white)',
-              padding: '0.25rem 0.75rem',
-              fontSize: '0.875rem',
-            }}
+            className={styles.genreBadge}
+            style={{ backgroundColor: `var(--color-${genre})` }}
           >
             {genre}
           </span>
