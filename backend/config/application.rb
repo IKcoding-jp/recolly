@@ -37,8 +37,12 @@ module App
     # config.eager_load_paths << Rails.root.join("extras")
 
     # Only loads a smaller set of middleware suitable for API only apps.
-    # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    # セッションCookie認証に必要なミドルウェアを追加（ADR-0007）
+    # APIモードではデフォルト無効のため、deviseのセッション認証のために手動で有効化
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore, key: "_recolly_session"
   end
 end

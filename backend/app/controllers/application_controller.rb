@@ -1,2 +1,22 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::API
+  # deviseがrespond_toを使うため、APIモードに手動追加
+  include ActionController::MimeResponds
+
+  respond_to :json
+
+  private
+
+  # 未認証ユーザーへの401レスポンス（deviseのデフォルトリダイレクトを上書き）
+  def authenticate_user!
+    return if user_signed_in?
+
+    render json: { error: 'ログインが必要です' }, status: :unauthorized
+  end
+
+  # ユーザー情報のJSON表現（パスワード等の機密情報を除外）
+  def user_json(user)
+    user.as_json(only: %i[id username email avatar_url bio created_at])
+  end
 end
